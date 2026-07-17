@@ -2,7 +2,7 @@
   "version": "2.6.2",
   "summary": {
     "title": "New Threat Model",
-    "owner": "",
+    "owner": "Carlo Carrion",
     "description": "",
     "id": 0
   },
@@ -20,7 +20,7 @@
       }
     ],
     "diagramTop": 1,
-    "reviewer": "",
+    "reviewer": "Docente",
     "threatTop": 0
   }
 }
