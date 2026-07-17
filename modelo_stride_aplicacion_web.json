@@ -1,0 +1,401 @@
+{
+  "summary": {
+    "title": "Modelo de Amenazas - Aplicación Web Corporativa",
+    "owner": "Carlo Carrion",
+    "reviewer": "Docente",
+    "description": "Modelo de amenazas de una aplicación web corporativa compuesta por un navegador, un servidor Front-End Web, una API Back-End interna y una base de datos PostgreSQL. El análisis utiliza STRIDE para identificar amenazas y documentar sus mitigaciones."
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Carlo Carrion"
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "DFD Aplicación Web Corporativa",
+        "description": "Diagrama de flujo de datos para el análisis STRIDE.",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "diagramType": "STRIDE",
+        "id": 0,
+        "diagramJson": {
+          "cells": [
+            {
+              "type": "tm.Actor",
+              "size": {
+                "width": 160,
+                "height": 80
+              },
+              "position": {
+                "x": 70,
+                "y": 220
+              },
+              "angle": 0,
+              "id": "e317a23a-37a1-484e-9349-c186db6acd0f",
+              "z": 1,
+              "hasOpenThreats": false,
+              "description": "Usuario externo que accede a la aplicación corporativa desde un navegador web.",
+              "threats": [],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Browser"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 120
+              },
+              "position": {
+                "x": 330,
+                "y": 210
+              },
+              "angle": 0,
+              "id": "0bedfeca-a7cb-40cb-9794-720c14609c65",
+              "z": 2,
+              "hasOpenThreats": false,
+              "description": "Servidor que entrega la interfaz web y recibe las solicitudes del navegador.",
+              "threats": [],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "Front-End Web"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Process",
+              "size": {
+                "width": 120,
+                "height": 120
+              },
+              "position": {
+                "x": 600,
+                "y": 210
+              },
+              "angle": 0,
+              "id": "520716f0-1b1d-4641-8d5a-835983cad90d",
+              "z": 3,
+              "hasOpenThreats": false,
+              "description": "Servidor interno que procesa la lógica de negocio, valida solicitudes y accede a PostgreSQL.",
+              "threats": [
+                {
+                  "ruleId": "96de552c-aba9-4bd6-9ba3-4ef72366f53f",
+                  "title": "Negación de operaciones realizadas",
+                  "type": "Repudiation",
+                  "modelType": "STRIDE",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "description": "Un usuario podría negar haber modificado, eliminado o consultado información si el sistema no conserva evidencia verificable.",
+                  "mitigation": "Implementar registros de auditoría protegidos con usuario, acción, fecha, hora, IP, resultado e identificador único de solicitud.",
+                  "threatId": "c3b80846-3b8d-4af0-ab35-43cb99af6afb"
+                },
+                {
+                  "ruleId": "9207c521-7c13-44d2-9a8f-7833b1ca23e1",
+                  "title": "Saturación de la API mediante solicitudes masivas",
+                  "type": "Denial of service",
+                  "modelType": "STRIDE",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Un atacante podría enviar solicitudes masivas o consultas costosas hasta agotar CPU, memoria, conexiones o recursos de la base de datos.",
+                  "mitigation": "Aplicar rate limiting, límites de tamaño, timeouts, caché, monitoreo, firewall, límites de conexiones y bloqueo temporal de fuentes abusivas.",
+                  "threatId": "fd597178-efac-430f-9723-171e86adf899"
+                },
+                {
+                  "ruleId": "6e5114e2-8fed-46eb-8c84-094d58cc2b35",
+                  "title": "Obtención indebida de privilegios administrativos",
+                  "type": "Elevation of privilege",
+                  "modelType": "STRIDE",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "description": "Un usuario básico podría manipular su token, modificar identificadores o acceder directamente a rutas protegidas para ejecutar funciones administrativas.",
+                  "mitigation": "Aplicar RBAC, validar permisos en cada endpoint, principio de mínimo privilegio, protección de rutas administrativas y verificación de firma y vigencia de tokens.",
+                  "threatId": "e3cbbad2-d212-4421-aca1-e343243d8831"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "API Back-End"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Store",
+              "size": {
+                "width": 180,
+                "height": 80
+              },
+              "position": {
+                "x": 850,
+                "y": 230
+              },
+              "angle": 0,
+              "id": "6c6504d2-e59e-42bd-9571-3825749d9af7",
+              "z": 4,
+              "hasOpenThreats": false,
+              "description": "Almacena usuarios, credenciales cifradas, información corporativa y registros de auditoría.",
+              "threats": [
+                {
+                  "ruleId": "7efb2b8e-0074-4ed6-937f-ead32b13a9e1",
+                  "title": "Exposición de información sensible",
+                  "type": "Information disclosure",
+                  "modelType": "STRIDE",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Una configuración incorrecta, credenciales comprometidas o consultas vulnerables podrían exponer datos personales, credenciales, información corporativa o copias de seguridad.",
+                  "mitigation": "Cifrar datos en reposo y en tránsito, restringir PostgreSQL, usar cuentas con privilegios mínimos, proteger respaldos, enmascarar datos sensibles y aplicar controles de acceso.",
+                  "threatId": "d44cf456-d6e5-4c17-be7e-214b074117e3"
+                }
+              ],
+              "attrs": {
+                ".element-shape": {
+                  "class": "element-shape hasNoOpenThreats isInScope"
+                },
+                "text": {
+                  "text": "PostgreSQL Database"
+                },
+                ".element-text": {
+                  "class": "element-text hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "e317a23a-37a1-484e-9349-c186db6acd0f"
+              },
+              "target": {
+                "id": "0bedfeca-a7cb-40cb-9794-720c14609c65"
+              },
+              "vertices": [],
+              "id": "2ec9d64a-48d0-49ad-93eb-32ee1b856b96",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "HTTPS",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 8,
+              "hasOpenThreats": false,
+              "description": "El navegador envía credenciales, formularios y solicitudes mediante HTTPS.",
+              "protocol": "HTTPS",
+              "isPublicNetwork": true,
+              "threats": [
+                {
+                  "ruleId": "e1d5d615-3b00-4f38-ace3-1ab171a1e9d0",
+                  "title": "Suplantación de identidad del usuario",
+                  "type": "Spoofing",
+                  "modelType": "STRIDE",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Un atacante podría obtener credenciales o un token de sesión y acceder al sistema haciéndose pasar por un usuario legítimo.",
+                  "mitigation": "Aplicar autenticación multifactor, contraseñas robustas, HTTPS, cookies seguras, expiración de sesiones, bloqueo de intentos y almacenamiento de contraseñas mediante hash seguro.",
+                  "threatId": "aecd7a2f-c731-4bc0-9f47-2fc095482305"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "0bedfeca-a7cb-40cb-9794-720c14609c65"
+              },
+              "target": {
+                "id": "520716f0-1b1d-4641-8d5a-835983cad90d"
+              },
+              "vertices": [],
+              "id": "5d1a4890-2b61-4259-8ff6-57a219bc27ed",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "REST API HTTPS",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 9,
+              "hasOpenThreats": false,
+              "description": "El front-end envía solicitudes autenticadas a la API mediante HTTPS.",
+              "protocol": "HTTPS/REST",
+              "isPublicNetwork": false,
+              "threats": [
+                {
+                  "ruleId": "68171223-3c3b-4676-b85d-4621901b3d87",
+                  "title": "Manipulación de datos enviados a la API",
+                  "type": "Tampering",
+                  "modelType": "STRIDE",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "description": "Un atacante podría modificar parámetros, identificadores o contenido enviado desde el front-end hacia la API para alterar información o acceder a registros ajenos.",
+                  "mitigation": "Usar HTTPS, validar y sanitizar todas las entradas en el back-end, aplicar consultas parametrizadas, comprobar autorizaciones y no confiar únicamente en validaciones del front-end.",
+                  "threatId": "75cb482d-4159-4765-8927-2ae574ec8dab"
+                }
+              ],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Flow",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "id": "520716f0-1b1d-4641-8d5a-835983cad90d"
+              },
+              "target": {
+                "id": "6c6504d2-e59e-42bd-9571-3825749d9af7"
+              },
+              "vertices": [],
+              "id": "9ebccbc5-4f44-4e28-bc39-8382ab1e65d5",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "SQL cifrado",
+                      "font-weight": "400",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 10,
+              "hasOpenThreats": false,
+              "description": "La API consulta, registra, modifica o elimina información en PostgreSQL.",
+              "protocol": "PostgreSQL/TLS",
+              "isPublicNetwork": false,
+              "threats": [],
+              "attrs": {
+                ".marker-target": {
+                  "class": "marker-target hasNoOpenThreats isInScope"
+                },
+                ".connection": {
+                  "class": "connection hasNoOpenThreats isInScope"
+                }
+              }
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 260,
+                "y": 80
+              },
+              "target": {
+                "x": 260,
+                "y": 470
+              },
+              "vertices": [],
+              "id": "a21ed1ad-0c2f-4d1c-b31f-7bfb3540e19b",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Límite de confianza: Internet",
+                      "font-weight": "600",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 5,
+              "attrs": {}
+            },
+            {
+              "type": "tm.Boundary",
+              "size": {
+                "width": 10,
+                "height": 10
+              },
+              "smooth": true,
+              "source": {
+                "x": 530,
+                "y": 80
+              },
+              "target": {
+                "x": 530,
+                "y": 470
+              },
+              "vertices": [],
+              "id": "b55ede36-923a-48ed-8a48-eb02a39ea1d7",
+              "labels": [
+                {
+                  "position": 0.5,
+                  "attrs": {
+                    "text": {
+                      "text": "Límite de confianza: Red interna",
+                      "font-weight": "600",
+                      "font-size": "small"
+                    }
+                  }
+                }
+              ],
+              "z": 6,
+              "attrs": {}
+            }
+          ]
+        }
+      }
+    ],
+    "reviewer": "Docente"
+  }
+}
