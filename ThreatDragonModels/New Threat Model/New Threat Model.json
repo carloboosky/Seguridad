@@ -199,7 +199,25 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "5f16fab3-b0b5-4d83-99b1-2ae80c3c5262",
+                  "title": "Robo de credenciales del usuario",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Un atacante podría obtener las credenciales o el token de sesión de un usuario legítimo y acceder a la aplicación haciéndose pasar por él.",
+                  "mitigation": "Implementar autenticación multifactor (MFA), utilizar HTTPS, almacenar las contraseñas mediante hash seguro y aplicar políticas de contraseñas fuertes.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 0
+              }
             }
           },
           {
@@ -319,7 +337,29 @@
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "2136ceb4-2e5f-4263-b0cf-62dcc4dbf6af",
+                  "title": "Manipulación de datos enviados a la API",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Un atacante podría modificar los datos enviados desde el Front-End hacia la API para alterar la información procesada.",
+                  "mitigation": "Validar y sanitizar todas las entradas, utilizar HTTPS y realizar las validaciones críticas en el servidor.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -439,7 +479,55 @@
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "307914a8-14ba-4e29-9e4b-1caad6cc6f20",
+                  "title": "Negación de acciones realizadas",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "Un usuario podría negar haber realizado una operación debido a la ausencia de registros de auditoría.",
+                  "mitigation": "Implementar registros de auditoría con usuario, fecha, hora, dirección IP y acción realizada.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                },
+                {
+                  "id": "210eac8a-1aec-4540-806c-5f35c195e3ad",
+                  "title": "Saturación de la API",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "Un atacante podría enviar una gran cantidad de solicitudes para provocar la indisponibilidad del servicio.",
+                  "mitigation": "Implementar rate limiting, firewall, monitoreo y límites de conexiones.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": ""
+                },
+                {
+                  "id": "2850d3e0-52bf-4665-9404-e22c07e31295",
+                  "title": "Escalada de privilegios",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Elevation of privilege",
+                  "description": "Un usuario con permisos básicos podría obtener privilegios administrativos mediante la manipulación de permisos o credenciales.",
+                  "mitigation": "Aplicar control de acceso basado en roles (RBAC), validar permisos en cada solicitud y utilizar el principio de mínimo privilegio.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 1
+              }
             }
           },
           {
@@ -563,7 +651,27 @@
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "5a869b66-c1bd-40b4-a479-31f93be1947a",
+                  "title": "Exposición de información sensible",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "La base de datos podría exponer información sensible debido a accesos no autorizados o configuraciones incorrectas.",
+                  "mitigation": "Cifrar la información, aplicar control de acceso, utilizar cuentas con privilegios mínimos y proteger las copias de seguridad.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             }
           },
           {
@@ -712,6 +820,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "Docente",
-    "threatTop": 0
+    "threatTop": 6
   }
 }
